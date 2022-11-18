@@ -19,16 +19,11 @@ namespace Links.Basic
         private bool _isParametr;
         public Parametr Parametr { get; set; }
         public bool IsFunction { get; set; }
-        public bool IsEquivalent { get; set; }
 
-        public Vertex( int id)
+        public Vertex(int id)
         {
             Id = id;
         }
-
-
-
-
 
         public static bool operator ==(Vertex v1, Vertex v2)
         {

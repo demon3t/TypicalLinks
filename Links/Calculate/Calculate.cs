@@ -9,58 +9,52 @@ namespace Links.Calculate
 {
     public static class Calculate
     {
-        public static double GetValue(Algorithm algorithm, List<Link> links, List<Vertex> vertices)
+        public static double GetValue(Algorithm algorithm, List<Link> links)
         {
-            for (int i = 0; i < algorithm.LinkOperations.Count; i++)
-            {
-                algorithm.LinkOperations[i](algorithm.Links[i],links,vertices);
-            }
 
+            foreach (Iteration iteration in algorithm)
+            {
+                iteration.Operation(iteration.LinksId, links);
+            }
             return links[0].h;
         }
 
-        internal static void Multiply(List<int> linksId, List<Link> links, List<Vertex> vertices)
+        internal static void Multiply(List<int> linksId, List<Link> links)
         {
-            //var _links = new List<Link>();
-
-            //foreach (var link in links)
-            //{
-            //    var _findedLinks = links.FindAll(x =>
-            //    x.Start == link.End &&
-            //    !x.IsEquivalent &&
-            //    !link.IsEquivalent);
-
-            //    if (_findedLinks.Count == 1)
-            //    {
-            //        _links.Add(new Temp(_findedLinks.First().h * link.h)
-            //        {
-            //            Start = link.Start,
-            //            End = _findedLinks.First().End,
-            //            IsEquivalent = false
-            //        });
-
-            //        _findedLinks.First().IsEquivalent = true;
-            //        link.IsEquivalent = true;
-
-            //        link.End.IsEquivalent = true;
-            //    }
-            //}
-            //links.AddRange(_links);
-            //links.RemoveAll(x => x.IsEquivalent);
-            //vertices.RemoveAll(x => x.IsEquivalent);
-        }
-
-        internal static void Adding(List<int> linksId, List<Link> links, List<Vertex> vertices)
-        {
-            var temp = new Temp(0);
+            var temp = new Temp(1);
             foreach (int n in linksId)
             {
-                temp.h += links[n].h;
+                temp.h *= links[n].h;
             }
             for (int i = linksId.Count - 1; i > 0; i--)
             {
                 links.RemoveAt(linksId[i]);
             }
+            links.Add(temp);
+        }
+
+        internal static void Adding(List<int> linksId, List<Link> links)
+        {
+            var temp = new Temp(0);
+            foreach (int n in linksId)
+            {
+                temp.h += links[n].IsAdding ? links[n].h : -links[n].h;
+            }
+            for (int i = linksId.Count - 1; i > 0; i--)
+            {
+                links.RemoveAt(linksId[i]);
+            }
+            links.Add(temp);
+        }
+
+        internal static void Revers(List<int> linksId, List<Link> links)
+        {
+            var temp = new Temp(0);
+            temp.h += links[1].IsAdding ? links[1].h / (1 - links[0].h * links[1].h) : links[1].h / (1 + links[0].h * links[1].h);
+
+            links.RemoveAt(linksId[1]);
+            links.RemoveAt(linksId[0]);
+
             links.Add(temp);
         }
     }

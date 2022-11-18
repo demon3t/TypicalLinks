@@ -28,14 +28,24 @@ namespace SimplestTypicalLinks
         {
             InitializeComponent();
 
-            List<Vertex> vertices = new List<Vertex>();
-            vertices.Add(new Vertex(0) { IsParametr = true });
-            vertices.Add(new Vertex(1) { IsFunction = true });
+            //List<Vertex> vertices = new List<Vertex>();
+            //vertices.Add(new Vertex(0) { IsParametr = true });
+            //vertices.Add(new Vertex(1) );
+            //vertices.Add(new Vertex(2) { IsFunction = true });
 
-            List<Link> links = new List<Link>();
+            //List<Link> links = new List<Link>();
 
-            // интегрирующее
-            //links.Add(new Integrating()
+            //// интегрирующее
+            ////links.Add(new Integrating()
+            ////{
+            ////    K = 1,
+            ////    T = 1,
+            ////    Start = vertices[0],
+            ////    End = vertices[1]
+            ////});
+
+            //// дифференцирующее
+            //links.Add(new Differentiating()
             //{
             //    K = 1,
             //    T = 0.1,
@@ -43,47 +53,38 @@ namespace SimplestTypicalLinks
             //    End = vertices[1]
             //});
 
-            // дифференцирующее
-            links.Add(new Differentiating()
-            {
-                K = 0.1,
-                T = 0.1,
-                Start = vertices[0],
-                End = vertices[1]
-            });
+            //// пропорциональное
+            ////links.Add(new Proportional()
+            ////{
+            ////    K = 1,
+            ////    T = 0.1,
+            ////    Start = vertices[0],
+            ////    End = vertices[1]
+            ////});
 
-            // пропорциональное
-            //links.Add(new Proportional()
-            //{
-            //    K = 1,
-            //    T = 0.1,
-            //    Start = vertices[0],
-            //    End = vertices[1]
-            //});
-
-            // инерционное
+            //// инерционное
             //links.Add(new Inertial()
             //{
-            //    K = 1,
+            //    K = 5,
             //    T = 0.1,
-            //    Start = vertices[0],
-            //    End = vertices[1]
+            //    Start = vertices[1],
+            //    End = vertices[2]
             //});
 
-            Algorithm a = new Algorithm(new List<Link>(links), new List<Vertex>(vertices));
+            // Algorithm a = new Algorithm(new List<Link>(links), new List<Vertex>(vertices));
 
 
 
-            PointCollection points = new PointCollection();
-            Link.i = 0;
-            do
-            {
-                points.Add(new Point(Link.i, Calculate.GetValue(a, new List<Link>(links), new List<Vertex>(vertices))));
-                Link.i += 0.05;
-            }
-            while (Link.i < 1);
+            //PointCollection points = new PointCollection();
+            //Link.i = 0;
+            //do
+            //{
+            //    points.Add(new Point(Link.i, Calculate.GetValue(a, new List<Link>(links))));
+            //    Link.i += 0.05;
+            //}
+            //while (Link.i < 1);
 
-            Plot.Plot.AddScatter(points.Xs(), points.Ys());
+            
             Plot.Refresh();
         }
     }

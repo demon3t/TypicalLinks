@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Grapher.Grapher"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Grapher"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas x:Name="Graph" Background="Transparent"
+            MouseMove="Graph_MouseMove"
+            MouseLeftButtonDown="Graph_MouseLeftButtonDown">
+
+        <Line x:Name="HorizontalLine" 
+              Stroke="SlateGray" StrokeThickness="2"
+              X1="0" X2="{Binding ElementName=Graph, Path=ActualWidth}"
+              Y1="0" Y2="0"/>
+
+        <Line x:Name="VerticalLine"
+              Stroke="SlateGray" StrokeThickness="2"
+              X1="0" X2="0"
+              Y1="0" Y2="{Binding ElementName=Graph, Path=ActualHeight}"/>
+
+        <Canvas.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Узел"/>
+                <MenuItem Header="Сумматор"
+                          Click="Adder_Click"/>
+                <MenuItem Header="Звено">
+                    <MenuItem Header="Пропорциональное"/>
+                    <MenuItem Header="Инерционное"/>
+                    <MenuItem Header="Дифференцирующее"/>
+                    <MenuItem Header="Интегрирующее"/>
+                    <MenuItem Header="Запаздывающее"/>
+                    <MenuItem Header="Колебательное"/>
+                </MenuItem>
+            </ContextMenu>
+        </Canvas.ContextMenu>
+
+    </Canvas>
+</UserControl>
