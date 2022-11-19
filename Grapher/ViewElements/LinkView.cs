@@ -9,14 +9,15 @@ using System.Windows.Shapes;
 
 namespace Grapher.ViewElements
 {
-    internal class DotView : IViewModel
+    internal class LinkView : IViewModel
     {
-        private Ellipse ellipse;
+        private Border border;
+
         UIElement IViewModel.Model { get { return this; } }
 
-        public DotView()
+        public LinkView()
         {
-            ellipse = DotRendering();
+            border = LinkRendering();
         }
 
         void IViewModel.Binding(Grapher grapher)
@@ -31,7 +32,7 @@ namespace Grapher.ViewElements
             edi.Click += Edi_Click;
             menu.Items.Add(edi);
 
-            ellipse.ContextMenu = menu;
+            border.ContextMenu = menu;
 
             void Del_Click(object sender, RoutedEventArgs e)
             {
@@ -44,26 +45,27 @@ namespace Grapher.ViewElements
             }
         }
 
-        private Ellipse DotRendering()
+        private Border LinkRendering()
         {
-            return new Ellipse()
+            return new Border()
             {
-                Fill = Brushes.Black,
-                Stroke = Brushes.Black,
-                Width = 8,
-                Height = 8,
+                Background = Brushes.Transparent,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(1.25),
+                Width = 60,
+                Height = 40,
             };
         }
 
         void IViewModel.Move(double X, double Y)
         {
-            Canvas.SetLeft(this, X - this.ellipse.ActualWidth / 2);
-            Canvas.SetTop(this, Y - this.ellipse.ActualHeight / 2);
+            Canvas.SetLeft(this, X - this.border.ActualWidth / 2);
+            Canvas.SetTop(this, Y - this.border.ActualHeight / 2);
         }
 
-        public static implicit operator Ellipse(DotView dot)
+        public static implicit operator Border(LinkView link)
         {
-            return dot.ellipse;
+            return link.border;
         }
     }
 }

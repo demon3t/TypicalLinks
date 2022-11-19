@@ -10,6 +10,6 @@ namespace Grapher.Interfaces
     {
         internal UIElement Model { get; }
         internal void Move(double X, double Y);
-        internal void SetContextMenu(Canvas graph);
+        internal void Binding(Grapher grapher);
     }
 }

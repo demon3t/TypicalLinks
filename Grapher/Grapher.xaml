@@ -22,11 +22,13 @@
 
         <Canvas.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Узел"/>
+                <MenuItem Header="Узел"
+                          Click="Dot_Click"/>
                 <MenuItem Header="Сумматор"
                           Click="Adder_Click"/>
                 <MenuItem Header="Звено">
-                    <MenuItem Header="Пропорциональное"/>
+                    <MenuItem Header="Пропорциональное"
+                              Click="Link_Click"/>
                     <MenuItem Header="Инерционное"/>
                     <MenuItem Header="Дифференцирующее"/>
                     <MenuItem Header="Интегрирующее"/>

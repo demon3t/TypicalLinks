@@ -76,17 +76,29 @@ namespace Grapher.ViewElements
             border = AdderRendering();
         }
 
-        void IViewModel.SetContextMenu(Canvas graph)
+        void IViewModel.Binding(Grapher grapher)
         {
             ContextMenu menu = new ContextMenu();
 
             MenuItem del = new MenuItem() { Header = "Удалить" };
+            del.Click += Del_Click;
             menu.Items.Add(del);
 
             MenuItem edi = new MenuItem() { Header = "Переместить" };
+            edi.Click += Edi_Click;
             menu.Items.Add(edi);
 
             border.ContextMenu = menu;
+
+            void Del_Click(object sender, RoutedEventArgs e)
+            {
+                grapher.Graph.Children.Remove(this);
+            }
+
+            void Edi_Click(object sender, RoutedEventArgs e)
+            {
+                grapher.SetEditMode(this);
+            }
         }
 
 

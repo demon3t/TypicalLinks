@@ -27,18 +27,6 @@ namespace Grapher
 
         private const double c_Step = 20;
 
-        internal delegate void ContextMenuOperation(IViewModel model);
-
-        internal ContextMenuOperation Delete = delegate (IViewModel model)
-        {
-            
-        };
-
-        internal ContextMenuOperation Edit = delegate (IViewModel model)
-        {
-
-        };
-
         private Mode Mode
         {
             get { return _mode; }
@@ -71,7 +59,7 @@ namespace Grapher
             VerticalLine.X1 = Math.Round(Mouse.GetPosition(Graph).X / c_Step, 0) * c_Step ;
             VerticalLine.X2 = Math.Round(Mouse.GetPosition(Graph).X / c_Step, 0) * c_Step;
 
-            HorizontalLine.Y1 = Math.Round(Mouse.GetPosition(Graph).Y / c_Step, 0) * c_Step;
+            HorizontalLine.Y1 = Math.Round(Mouse.GetPosition(Graph).Y / c_Step, 0) * c_Step; 
             HorizontalLine.Y2 = Math.Round(Mouse.GetPosition(Graph).Y / c_Step, 0) * c_Step;
 
             Model.Move(VerticalLine.X1, HorizontalLine.Y1);
@@ -82,7 +70,7 @@ namespace Grapher
             if (_mode == Mode.Watch)
                 return;
 
-            Model.SetContextMenu(Graph);
+            Model.Binding(this);
             Mode = Mode.Watch;
             Model = null;
         }
@@ -93,7 +81,30 @@ namespace Grapher
             Graph.Children.Add(Model.Model);
             Mode = Mode.Edit;
         }
+
+        private void Dot_Click(object sender, RoutedEventArgs e)
+        {
+            Model = new DotView();
+            Graph.Children.Add(Model.Model);
+            Mode = Mode.Edit;
+        }
+        private void Link_Click(object sender, RoutedEventArgs e)
+        {
+            Model = new LinkView();
+            Graph.Children.Add(Model.Model);
+            Mode = Mode.Edit;
+        }
+
+
+
+        internal void SetEditMode(IViewModel model)
+        {
+            Mode = Mode.Edit;
+            Model = model;
+        }
+
     }
+
     internal enum Mode
     {
         Watch,
